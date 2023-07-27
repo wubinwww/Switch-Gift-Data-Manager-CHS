@@ -7,32 +7,32 @@ public static class Program
 {
     public static void Main()
     {
-        var msg = $"Switch Gift Data Manager v{BCATManager.Version}";
+        var msg = $"Switch神秘礼物数据管理器 v{BCATManager.Version}";
         Log(msg);
 
         Task.Run(TryUpdate).Wait();
 
-        msg = $"{Environment.NewLine}Select your game:{Environment.NewLine}{Environment.NewLine}" +
-            $"1 - LGPE{Environment.NewLine}" +
-            $"2 - SWSH{Environment.NewLine}" +
-            $"3 - BDSP{Environment.NewLine}" +
-            $"4 - PLA{Environment.NewLine}" +
-            $"5 - SCVI";
+        msg = $"{Environment.NewLine}选择你的游戏:{Environment.NewLine}{Environment.NewLine}" +
+            $"1 - 去皮去伊{Environment.NewLine}" +
+            $"2 - 剑盾{Environment.NewLine}" +
+            $"3 - 珍珠钻石{Environment.NewLine}" +
+            $"4 - 阿尔宙斯{Environment.NewLine}" +
+            $"5 - 朱紫";
         Log(msg);
 
         Games game = (Games)int.Parse(Console.ReadLine()!);
         if (game is Games.None || game > Games.SCVI)
         {
-            Log("Invalid input. Aborted.");
+            Log("无效的输入，已终止。");
             Console.ReadKey();
             return;
         }
 
         var bcat = new BCATManager(game);
 
-        msg = $"{Environment.NewLine}Enter a valid input path.{Environment.NewLine}{Environment.NewLine}The path can be either:{Environment.NewLine}" +
-            $"- A direct (full) path to a wondercard file{Environment.NewLine}" +
-            $"- A (full) path to a folder containing wondercard files";
+        msg = $"{Environment.NewLine}输入一个有效的输入路径.{Environment.NewLine}{Environment.NewLine}路径可以是任意一个:{Environment.NewLine}" +
+            $"- 到神秘礼物卡片文件的直接(完整)路径{Environment.NewLine}" +
+            $"- 包含神秘礼物卡片文件的文件夹的(完整)路径";
         Log(msg);
 
         var path = Console.ReadLine()!;
@@ -41,39 +41,39 @@ public static class Program
         else if (CheckValidPath(path))
             foreach (var file in Directory.GetFiles(path))
                 if (!bcat.TryAddWondercards(File.ReadAllBytes(file)))
-                    Log($"{file} could not be loaded.");
+                    Log($"{file} 无法加载.");
 
         if (bcat.Count() <= 0)
         {
-            Log("No valid files have been loaded. Aborted.");
+            Log("没有加载有效文件，已终止.");
             Console.ReadKey();
             return;
         }
 
         bcat.Sort();
-        Log($"{Environment.NewLine}Enter the source (full) path to your dumped BCAT:");
+        Log($"{Environment.NewLine}输入转储BCAT的源(完整)路径:");
         var sourcepath = Console.ReadLine()!;
         if (!CheckValidBcatPath(sourcepath))
         {
-            Log("Not a valid BCAT folder path. Aborted.");
+            Log("不是有效的BCAT文件夹路径，已终止.");
             Console.ReadKey();
             return;
         }
 
-        Log($"{Environment.NewLine}Enter a destination (full) path to save the forged BCAT:");
+        Log($"{Environment.NewLine}输入保存伪造BCAT的目标(完整)路径:");
         var destpath = Console.ReadLine()!;
         if (!CheckValidPath(destpath))
         {
-            Log("Not a valid path. Aborted.");
+            Log("不是一个有效的路径，已终止.");
             Console.ReadKey();
             return;
         }
 
         if (game is not (Games.LGPE or Games.BDSP))
         {
-            msg = $"{Environment.NewLine}Select a build option:{Environment.NewLine}{Environment.NewLine}" +
-                $"1 - Merge as one file{Environment.NewLine}" +
-                $"2 - Keep separate files";
+            msg = $"{Environment.NewLine}选择一个保存选项:{Environment.NewLine}{Environment.NewLine}" +
+                $"1 - 合并为一个文件{Environment.NewLine}" +
+                $"2 - 单独保存文件";
             Log(msg);
         }
 
@@ -85,7 +85,7 @@ public static class Program
 
         if(opt < 1 || opt > 2)
         {
-            Log("Invalid input. Aborted.");
+            Log("无效的输入，已终止。");
             Console.ReadKey();
             return;
         }
@@ -99,45 +99,45 @@ public static class Program
             {
                 var wcdata = bcat.ConcatenateFiles();
                 var metadata = bcat.ForgeMetaInfo(wcdata.ToArray());
-                var metadatapath = Path.Combine(destpath, "directories");
+                var metadatapath = Path.Combine(destpath, "目录");
                 metadatapath = Path.Combine(metadatapath, bcat.GetDefaultBcatFolderName());
-                var wcpath = Path.Combine(metadatapath, "files");
+                var wcpath = Path.Combine(metadatapath, "文件");
 
                 if (Directory.Exists(metadatapath))
                     DeleteFilesAndDirectory(metadatapath);
 
                 Directory.CreateDirectory(wcpath);
-                File.WriteAllBytes(Path.Combine(metadatapath, "files.meta"), metadata.ToArray());
+                File.WriteAllBytes(Path.Combine(metadatapath, "元文件"), metadata.ToArray());
                 File.WriteAllBytes(Path.Combine(wcpath, bcat.GetDefaultBcatFileName()), wcdata.ToArray());
-                Log($"Saved in {path}{Environment.NewLine}BCAT forge was successful.{Environment.NewLine}Press any key to exit...");
+                Log($"BCAT伪造成功后，保存在{path}{Environment.NewLine}.{Environment.NewLine}按任意键退出...");
                 Console.ReadKey();
             }
             catch (Exception)
             {
-                Log("Internal Error. Press any key to exit...");
+                Log("内部错误，按任意键退出...");
                 Console.ReadKey();
             }
         }
         else
         {
             var metadata = bcat.ForgeMetaInfo();
-            var metadatapath = Path.Combine(destpath, "directories");
+            var metadatapath = Path.Combine(destpath, "目录");
             metadatapath = Path.Combine(metadatapath, bcat.GetDefaultBcatFolderName());
-            var wcspath = Path.Combine(metadatapath, "files");
+            var wcspath = Path.Combine(metadatapath, "文件");
 
             if (Directory.Exists(metadatapath))
                 DeleteFilesAndDirectory(metadatapath);
 
             Directory.CreateDirectory(wcspath);
-            File.WriteAllBytes(Path.Combine(metadatapath, "files.meta"), metadata.ToArray());
+            File.WriteAllBytes(Path.Combine(metadatapath, "元文件"), metadata.ToArray());
             if (bcat.TrySaveAllWondercards(wcspath))
             {
-                Log($"Saved in {path}{Environment.NewLine}BCAT forge was successful.{Environment.NewLine}Press any key to exit...");
+                Log($"BCAT伪造成功后，保存在{path}{Environment.NewLine}.{Environment.NewLine}按任意键退出...");
                 Console.ReadKey();
             }
             else
             {
-                Log("Internal error. Press any key to exit...");
+                Log("内部错误，按任意键退出...");
                 Console.ReadKey();
             }
         }
@@ -223,10 +223,10 @@ public static class Program
     {
         if (await GitHubUtil.IsUpdateAvailable())
         {
-            Log("A program update is available. Do you want to download the latest release?\n[Y\\n]:");
+            Log("程序更新可用。是否要下载最新版本?\n[Y\\n]:");
             var str = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(str) && (str.ToLower().Equals("y") || str.ToLower().Equals("yes")))
-                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo { FileName = @"https://github.com/Manu098vm/Switch-Gift-Data-Manager/releases", UseShellExecute = true });
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo { FileName = @"https://github.com/ZiYuKing/Switch-Gift-Data-Manager-CHS", UseShellExecute = true });
         }
     }
 
