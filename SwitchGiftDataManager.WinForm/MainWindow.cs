@@ -30,7 +30,7 @@ public partial class MainWindow : Form
     {
         if (await GitHubUtil.IsUpdateAvailable())
         {
-            var result = MessageBox.Show("A program update is available. Do you want to download the latest release?", "Update available", MessageBoxButtons.YesNo);
+            var result = MessageBox.Show("有程序更新可用. 您想下载最新版本吗?", "可用更新", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
                 Process.Start(new ProcessStartInfo { FileName = @"https://github.com/Manu098vm/Switch-Gift-Data-Manager/releases", UseShellExecute = true });
         }
@@ -157,9 +157,9 @@ public partial class MainWindow : Form
             {
                 if (errList.Count == 0)
                     if (CurrentGame is Games.LGPE && list.Count() >= 1)
-                        errList.Add("LGPE only supports one (1) wondercard at a time. Aborted file(s):\n");
+                        errList.Add("LGPE一次只支持一（1）张神秘礼物卡片. 中止的文件(s):\n");
                     else
-                        errList.Add($"Attempted to load invalid files. Aborted file(s):\n");
+                        errList.Add($"尝试加载无效文件. 中止的文件(s):\n");
                 errList.Add($"- {Path.GetFileName(path)}");
             }
         }
@@ -214,7 +214,7 @@ public partial class MainWindow : Form
             }
             else
             {
-                MessageBox.Show($"WCID {wcid} already exists.");
+                MessageBox.Show($"WCID {wcid} 已经存在.");
                 return;
             }
         }
@@ -309,14 +309,14 @@ public partial class MainWindow : Form
             var str = ListBoxWC.Items[hoveredIndex].ToString()!;
             if (str.Contains('\u26A0'))
             {
-                var msg = "Wondercards with duplicated identifiers may not be detected correctly by the games.";
+                var msg = "带有重复标识符的神秘礼物卡片可能无法被游戏正确检测到.";
                 e.DrawBackground();
                 Graphics g = e.Graphics;
                 g.DrawString(msg, e.Font!, new SolidBrush(Color.Black), new PointF(e.Bounds.X, e.Bounds.Y));
             }
             else if (str.Contains('\u2757'))
             {
-                var msg = "Wondercard count is above the maximum allowed, or the WCID is over the maximum allowed.";
+                var msg = "神秘礼物卡片数量超过允许的最大值, 或者WC ID超过允许的最高值.";
                 e.DrawBackground();
                 Graphics g = e.Graphics;
                 g.DrawString(msg, e.Font!, new SolidBrush(Color.Black), new PointF(e.Bounds.X, e.Bounds.Y));
@@ -483,13 +483,13 @@ public partial class MainWindow : Form
 
             ZipFile.ExtractToDirectory(zipPath, path);
             File.Delete(zipPath);
-            Directory.Move(Path.Combine(path, "EventsGallery-master"), mgdbPath);
+            Directory.Move(Path.Combine(path, "大师活动画廊"), mgdbPath);
 
             File.Delete(Path.Combine(mgdbPath, ".gitignore"));
-            Directory.Delete(Path.Combine(mgdbPath, "Extras"), true);
-            Directory.Delete(Path.Combine(mgdbPath, "Unreleased"), true);
+            Directory.Delete(Path.Combine(mgdbPath, "附加信息"), true);
+            Directory.Delete(Path.Combine(mgdbPath, "未发布"), true);
 
-            var genPath = Path.Combine(mgdbPath, "Released");
+            var genPath = Path.Combine(mgdbPath, "已发布");
             Directory.Delete(Path.Combine(genPath, "Gen 1"), true);
             Directory.Delete(Path.Combine(genPath, "Gen 2"), true);
             Directory.Delete(Path.Combine(genPath, "Gen 3"), true);
@@ -499,15 +499,15 @@ public partial class MainWindow : Form
 
             var gen7Path = Path.Combine(genPath, "Gen 7");
             Directory.Delete(Path.Combine(gen7Path, "3DS"), true);
-            Directory.Delete(Path.Combine(Path.Combine(gen7Path, "Switch"), "Wondercard Records"), true);
+            Directory.Delete(Path.Combine(Path.Combine(gen7Path, "Switch"), "神秘礼物卡片记录"), true);
 
             var swshPath = Path.Combine(Path.Combine(genPath, "Gen 8"), "SwSh");
-            Directory.Delete(Path.Combine(swshPath, "Wild Area Events"), true);
+            Directory.Delete(Path.Combine(swshPath, "旷野活动"), true);
 
             var gen9Path = Path.Combine(genPath, "Gen 9");
-            Directory.Delete(Path.Combine(gen9Path, "Raid Events"), true);
+            Directory.Delete(Path.Combine(gen9Path, "Raid活动"), true);
 
-            MessageBox.Show($"The Mystery Gift Database has been downloaded in {mgdbPath}", "MGDB", 
+            MessageBox.Show($"神秘礼物数据库已下载 {mgdbPath}", "MGDB", 
                 MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
         }
     }

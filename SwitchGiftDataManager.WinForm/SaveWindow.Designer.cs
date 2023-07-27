@@ -55,7 +55,7 @@ partial class SaveWindow
         this.GrpBuild.Size = new System.Drawing.Size(458, 58);
         this.GrpBuild.TabIndex = 0;
         this.GrpBuild.TabStop = false;
-        this.GrpBuild.Text = "Build Method";
+        this.GrpBuild.Text = "生成方法";
         // 
         // RadioUnique
         // 
@@ -64,7 +64,7 @@ partial class SaveWindow
         this.RadioUnique.Name = "RadioUnique";
         this.RadioUnique.Size = new System.Drawing.Size(156, 24);
         this.RadioUnique.TabIndex = 1;
-        this.RadioUnique.Text = "Keep separate files";
+        this.RadioUnique.Text = "保留单独的文件";
         this.RadioUnique.UseVisualStyleBackColor = true;
         // 
         // RadioMultiple
@@ -76,7 +76,7 @@ partial class SaveWindow
         this.RadioMultiple.Size = new System.Drawing.Size(145, 24);
         this.RadioMultiple.TabIndex = 0;
         this.RadioMultiple.TabStop = true;
-        this.RadioMultiple.Text = "Merge as one file";
+        this.RadioMultiple.Text = "合并为一个文件";
         this.RadioMultiple.UseVisualStyleBackColor = true;
         // 
         // TxtDestPath
@@ -92,7 +92,7 @@ partial class SaveWindow
         this.BtnPath.Name = "BtnPath";
         this.BtnPath.Size = new System.Drawing.Size(82, 29);
         this.BtnPath.TabIndex = 2;
-        this.BtnPath.Text = "Browse";
+        this.BtnPath.Text = "浏览";
         this.BtnPath.UseVisualStyleBackColor = true;
         this.BtnPath.Click += new System.EventHandler(this.BtnPath_Click);
         // 
@@ -105,7 +105,7 @@ partial class SaveWindow
         this.GrpDest.Size = new System.Drawing.Size(458, 66);
         this.GrpDest.TabIndex = 3;
         this.GrpDest.TabStop = false;
-        this.GrpDest.Text = "Destination BCAT Path";
+        this.GrpDest.Text = "目标BCAT路径";
         // 
         // BtnCancel
         // 
@@ -113,7 +113,7 @@ partial class SaveWindow
         this.BtnCancel.Name = "BtnCancel";
         this.BtnCancel.Size = new System.Drawing.Size(125, 29);
         this.BtnCancel.TabIndex = 4;
-        this.BtnCancel.Text = "Cancel";
+        this.BtnCancel.Text = "取消";
         this.BtnCancel.UseVisualStyleBackColor = true;
         this.BtnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
         // 
@@ -123,7 +123,7 @@ partial class SaveWindow
         this.BtnSave.Name = "BtnSave";
         this.BtnSave.Size = new System.Drawing.Size(125, 29);
         this.BtnSave.TabIndex = 5;
-        this.BtnSave.Text = "Save";
+        this.BtnSave.Text = "保存";
         this.BtnSave.UseVisualStyleBackColor = true;
         this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
         // 
@@ -136,7 +136,7 @@ partial class SaveWindow
         this.groupBox2.Size = new System.Drawing.Size(458, 66);
         this.groupBox2.TabIndex = 6;
         this.groupBox2.TabStop = false;
-        this.groupBox2.Text = "Source BCAT Path";
+        this.groupBox2.Text = "源头BCAT路径";
         // 
         // BtnSrcBrowse
         // 
@@ -144,7 +144,7 @@ partial class SaveWindow
         this.BtnSrcBrowse.Name = "BtnSrcBrowse";
         this.BtnSrcBrowse.Size = new System.Drawing.Size(82, 27);
         this.BtnSrcBrowse.TabIndex = 1;
-        this.BtnSrcBrowse.Text = "Browse";
+        this.BtnSrcBrowse.Text = "浏览";
         this.BtnSrcBrowse.UseVisualStyleBackColor = true;
         this.BtnSrcBrowse.Click += new System.EventHandler(this.BtnSrcBrowse_Click);
         // 
@@ -172,7 +172,7 @@ partial class SaveWindow
         this.MinimizeBox = false;
         this.Name = "SaveWindow";
         this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-        this.Text = "Save BCAT Package";
+        this.Text = "保存BCAT包设置";
         this.GrpBuild.ResumeLayout(false);
         this.GrpBuild.PerformLayout();
         this.GrpDest.ResumeLayout(false);

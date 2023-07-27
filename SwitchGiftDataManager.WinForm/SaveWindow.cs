@@ -46,17 +46,17 @@ public partial class SaveWindow : Form
     {
         if(!RadioUnique.Checked && !RadioMultiple.Checked)
         {
-            MessageBox.Show("Select a Build Method.");
+            MessageBox.Show("选择生成方法.");
             return;
         }
         if (!CheckValidBcatPath(TxtSourcePath.Text))
         {
-            MessageBox.Show("Invalid BCAT source path");
+            MessageBox.Show("BCAT源头路径无效");
             return;
         }
         if (!CheckValidPath(TxtDestPath.Text))
         {
-            MessageBox.Show("Invalid destination path.");
+            MessageBox.Show("无效的目标路径.");
             return;
         }
 
@@ -69,15 +69,15 @@ public partial class SaveWindow : Form
             {
                 var wcdata = Package.ConcatenateFiles();
                 var metadata = Package.ForgeMetaInfo(wcdata.ToArray());
-                var metadatapath = Path.Combine(path, "directories");
+                var metadatapath = Path.Combine(path, "目录");
                 metadatapath = Path.Combine(metadatapath, Package.GetDefaultBcatFolderName());
-                var wcpath = Path.Combine(metadatapath, "files");
+                var wcpath = Path.Combine(metadatapath, "文件");
 
                 if (Directory.Exists(metadatapath))
                     DeleteFilesAndDirectory(metadatapath);
 
                 Directory.CreateDirectory(wcpath);
-                File.WriteAllBytes(Path.Combine(metadatapath, "files.meta"), metadata.ToArray());
+                File.WriteAllBytes(Path.Combine(metadatapath, "元文件"), metadata.ToArray());
                 File.WriteAllBytes(Path.Combine(wcpath, Package.GetDefaultBcatFileName()), wcdata.ToArray());
                 MessageBox.Show($"Saved in {path}{Environment.NewLine}BCAT forge was successful.");
                 this.Close();
@@ -93,21 +93,21 @@ public partial class SaveWindow : Form
             var metadata = Package.ForgeMetaInfo();
             var metadatapath = Path.Combine(path, "directories");
             metadatapath = Path.Combine(metadatapath, Package.GetDefaultBcatFolderName());
-            var wcspath = Path.Combine(metadatapath, "files");
+            var wcspath = Path.Combine(metadatapath, "文件");
 
             if (Directory.Exists(metadatapath))
                 DeleteFilesAndDirectory(metadatapath);
 
             Directory.CreateDirectory(wcspath);
-            File.WriteAllBytes(Path.Combine(metadatapath, "files.meta"), metadata.ToArray());
+            File.WriteAllBytes(Path.Combine(metadatapath, "元文件"), metadata.ToArray());
             if (Package.TrySaveAllWondercards(wcspath))
             {
-                MessageBox.Show($"Saved in {path}{Environment.NewLine}BCAT forge was successful.");
+                MessageBox.Show($"保存于{path}{Environment.NewLine}BCAT保存信息成功.");
                 this.Close();
             }
             else
             {
-                MessageBox.Show("Internal error.");
+                MessageBox.Show("内部错误.");
                 this.Close();
             }
         }
