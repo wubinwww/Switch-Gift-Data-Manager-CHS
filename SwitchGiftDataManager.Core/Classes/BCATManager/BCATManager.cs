@@ -136,7 +136,7 @@ public class BCATManager
         if (WCList is not null && WCList.Count > 0)
             foreach (var wc in WCList)
             {
-                var str = wc.Type!.ToString()!.Equals("Pokemon") ? ((PokemonGift)wc.Content!).GetSpeciesName().Replace("\r","") : wc.Type!.ToString()!;
+                var str = wc.Type!.ToString()!.Equals("宝可梦") ? ((PokemonGift)wc.Content!).GetSpeciesName().Replace("\r","") : wc.Type!.ToString()!;
                 list.Add($"{Game} #{wc.WCID}: {str}");
             }
         return list;
@@ -171,7 +171,7 @@ public class BCATManager
                 {
                     var item = c.GetItemName().Replace("\r","");
                     var qty = c.Quantity;
-                    var str = $"{item.Replace("BP", "Battle Points").Replace("LP", "League Points")}";
+                    var str = $"{item.Replace("BP", "对战点数").Replace("LP", "联赛积分")}";
                     if (qty != 0x0 && qty != ushort.MaxValue)
                         str = $"{str} x{qty}";
                     if (el1.Equals(""))
@@ -285,7 +285,7 @@ public class BCATManager
     private static string ForgeWcFileName(Wondercard wc)
     {
         var type = wc.Type!.ToString()!;
-        var content = type.Equals("Pokemon") ? $"{((PokemonGift)wc.Content!).GetSpeciesName().Replace("\r", "")}" : type;
+        var content = type.Equals("宝可梦") ? $"{((PokemonGift)wc.Content!).GetSpeciesName().Replace("\r", "")}" : type;
         var str = $"{wc.WCID:0000}_{content}";
         var sb = new System.Text.StringBuilder();
         foreach (char c in str)
@@ -327,11 +327,11 @@ public class BCATManager
     {
         return game switch
         {
-            Games.LGPE => "normal",
-            Games.SWSH => "normal",
+            Games.LGPE => "普通",
+            Games.SWSH => "普通",
             Games.BDSP => "99",
-            Games.PLA => "normal",
-            Games.SCVI => "normal",
+            Games.PLA => "普通",
+            Games.SCVI => "普通",
             _ => throw new ArgumentOutOfRangeException(nameof(game)),
         };
     }
@@ -352,11 +352,11 @@ public class BCATManager
     {
         return type switch
         {
-            ShinyType.ShinyLocked => "Shiny Locked",
-            ShinyType.ShinyPossible => "Shiny Standard Odds",
-            ShinyType.ShinyHighOdds => "Shiny High Odds",
-            ShinyType.ShinyForced => "Shiny Forced",
-            ShinyType.ShinyTIDAbuse => "Shiny Possible (TID Abuse)",
+            ShinyType.ShinyLocked => "闪亮锁定",
+            ShinyType.ShinyPossible => "闪光概率正常",
+            ShinyType.ShinyHighOdds => "闪光概率高",
+            ShinyType.ShinyForced => "强制闪光",
+            ShinyType.ShinyTIDAbuse => "可能闪光(TID滥用)",
             _ => throw new IndexOutOfRangeException()
         };
     }
@@ -365,8 +365,8 @@ public class BCATManager
     {
         return type switch
         {
-            PIDType.FixedPID => "Fixed PID",
-            PIDType.RandomPID => "Random PID",
+            PIDType.FixedPID => "固定PID",
+            PIDType.RandomPID => "随机PID",
             _ => throw new IndexOutOfRangeException()
         };
     }
