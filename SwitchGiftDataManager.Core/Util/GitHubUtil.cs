@@ -41,8 +41,8 @@ namespace SwitchGiftDataManager.Core
 
         private static async Task<string> GetLatest()
         {
-            var client = new GitHubClient(new ProductHeaderValue("Switch-Gift-Data-Manager"));
-            var release = await client.Repository.Release.GetLatest("Manu098vm", "Switch-Gift-Data-Manager");
+            var client = new GitHubClient(new ProductHeaderValue("Switch礼物数据管理器"));
+            var release = await client.Repository.Release.GetLatest("Manu098vm", "Switch礼物数据管理器");
             return release.Name;
         }
 
